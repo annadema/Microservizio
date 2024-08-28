@@ -52,5 +52,16 @@ namespace Microservizio.Controllers
             return Ok(libro);
         
         }
+
+        [HttpPost("insertlibro")]
+        [ProducesResponseType(typeof(LibroDTO), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> InsertLibro([FromBody] LibroDTO libro)
+        {
+            if (libro == null) return BadRequest("manda un libro");
+
+            LibroDTO newlibro = await this._libreriaBL.Insert(libro);
+            return Ok(libro);
+
+        }
     }
 }

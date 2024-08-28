@@ -49,5 +49,10 @@ namespace BL.Libreria
         {
             return await this._libreriaDAL.GetByISBN(isbn);
         }
+
+        public async Task<LibroDTO> Insert(LibroDTO libro)
+        {
+            return await this._libreriaDAL.Insert(libro);
+        }
     }
 }

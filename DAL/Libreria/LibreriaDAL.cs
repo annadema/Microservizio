@@ -91,5 +91,12 @@ namespace DAL.Libreria
             await Task.Delay(1000);
             return myLibri.Where(libro => (libro.ISBN == ISBN)).SingleOrDefault();
         }
+
+        public async Task<LibroDTO> Insert(LibroDTO libro)
+        {
+            await Task.Delay(500);
+            myLibri.Add(libro);
+            return libro;
+        }
     }
 }
