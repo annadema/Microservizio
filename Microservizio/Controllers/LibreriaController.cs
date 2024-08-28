@@ -18,7 +18,7 @@ namespace Microservizio.Controllers
             this._libreriaBL = libreriaBL;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("getAll")]
         [ProducesResponseType(typeof(List<LibroDTO>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll()
         {
@@ -26,14 +26,31 @@ namespace Microservizio.Controllers
             return Ok(elencoLibri);
         }
        
-        [HttpGet("GetAllCandiani")]
+        [HttpGet("getAllCandiani")]
         [ProducesResponseType(typeof(List<LibroDTO>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAllCandiani()
         {
-            IEnumerable<LibroDTO> elencoLibri = await this._libreriaBL.GetAllCandiani();
+            IEnumerable<LibroDTO> elencoLibri = await this._libreriaBL.GetFilterByAutore("canDIANI");
             return Ok(elencoLibri);
         }
 
+        [HttpGet("getbyisbn/{ISBN}")]
+        [ProducesResponseType(typeof(LibroDTO), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetByISBN(String ISBN)
+        {
+            if (String.IsNullOrEmpty(ISBN)) return BadRequest("ISBN deve avere un valore");
 
+            LibroDTO libro = null;
+            try
+            {
+                libro = await this._libreriaBL.GetByISBN(ISBN);
+            }
+            catch {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            
+            return Ok(libro);
+        
+        }
     }
 }

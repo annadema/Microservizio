@@ -11,6 +11,7 @@ namespace Interfaccia_DAL.Libreria
     {
         Task<IEnumerable<LibroDTO>> GetAll();
         Task<IEnumerable<LibroDTO>> GetAllCandiani();
-
+        Task<IEnumerable<LibroDTO>> GetFilterByAutore(String autore);
+        Task<LibroDTO> GetByISBN(String ISBN);
     }
 }

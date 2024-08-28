@@ -27,8 +27,27 @@ namespace BL.Libreria
 
         public async Task<IEnumerable<LibroDTO>> GetAllCandiani()
         {
-            IEnumerable<LibroDTO> elencoLibri = await this._libreriaDAL.GetAllCandiani();
+            IEnumerable<LibroDTO> elencoLibri = await this._libreriaDAL.GetAllCandiani();    
+
             return elencoLibri;
+        }
+
+        public async Task<IEnumerable<LibroDTO>> GetFilterByAutore(string autore)
+        {
+            IEnumerable<LibroDTO> elencoLibriRaw = await this._libreriaDAL.GetFilterByAutore("CAndiani");
+
+            return elencoLibriRaw.Select(libro => new LibroDTO()
+            {
+                Autore = libro.Autore,
+                Titolo = libro.Titolo.ToUpper(),
+                ISBN = libro.ISBN,
+                NumeroPagine = libro.NumeroPagine
+            });
+        }
+
+        public async Task<LibroDTO> GetByISBN(string isbn)
+        {
+            return await this._libreriaDAL.GetByISBN(isbn);
         }
     }
 }

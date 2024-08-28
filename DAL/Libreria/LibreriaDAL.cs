@@ -42,7 +42,7 @@ namespace DAL.Libreria
                 {
                     Titolo = "Questo immenso non sapere",
                     Autore = "Candiani",
-                    ISBN = "1234567890",
+                    ISBN = "43567",
                     NumeroPagine = 168
                 },
                 new LibroDTO()
@@ -78,6 +78,18 @@ namespace DAL.Libreria
                     
 
             return libriCandiani;
+        }
+
+        public async Task<IEnumerable<LibroDTO>> GetFilterByAutore(string autore)
+        {
+            await Task.Delay(1000);
+            return  myLibri.Where(libro=>libro.Autore.ToUpper().Contains(autore.ToUpper()));
+        }
+
+        public async Task<LibroDTO> GetByISBN(string ISBN)
+        {
+            await Task.Delay(1000);
+            return myLibri.Where(libro => (libro.ISBN == ISBN)).SingleOrDefault();
         }
     }
 }
