@@ -1,4 +1,5 @@
 ﻿using DTO.Angular;
+using DTO.Libreria;
 using Interfaccia_BL.Angular;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -25,7 +26,18 @@ namespace Microservizio.Controllers
         #endregion
 
         #region APIs
+        #region endpoint prova ritorna stringa
 
+        [HttpGet("prova")]
+        [ProducesResponseType(typeof(String), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Prova()
+        {
+            return Ok("Ciao Mondo");
+        }
+
+        #endregion
+
+        #region endpoint post login
         [HttpPost("login")]
         [ProducesResponseType(typeof(LoginResponseDTO), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Login([FromBody] LoginRequestDTO loginreq)
@@ -37,7 +49,7 @@ namespace Microservizio.Controllers
             #endregion
 
             LoginResponseDTO response = null;
-                
+
             try
             {
                 response = await this._angularBL.Login(loginreq);
@@ -48,10 +60,25 @@ namespace Microservizio.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-              
+
             return Ok(response);
 
         }
+        #endregion
+
+        #region endpoint get users
+
+        [HttpGet("getusers")]
+        [ProducesResponseType(typeof(List<UtenteDTO>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAll()
+        {
+            IEnumerable<UtenteDTO> users = await this._angularBL.GetAll();
+            return Ok(users);
+        }
+
+        #endregion
+
+
         #endregion
 
 

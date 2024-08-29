@@ -10,5 +10,7 @@ namespace Interfaccia_BL.Angular
     public interface IAngularBL
     {
         Task<LoginResponseDTO> Login(LoginRequestDTO login);
+        Task<IEnumerable<UtenteDTO>> GetAll();
+
     }
 }

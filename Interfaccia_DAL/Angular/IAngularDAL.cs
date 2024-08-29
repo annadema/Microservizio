@@ -10,5 +10,6 @@ namespace Interfaccia_DAL.Angular
     public interface IAngularDAL
     {
         Task<LoginResponseDTO> Login(LoginRequestDTO login);
+        Task<IEnumerable<UtenteDTO>> GetAll();
     }
 }

@@ -29,6 +29,10 @@ namespace BL.Angular
         {
             return await this._angularDAL.Login(login);
         }
+        public async  Task<IEnumerable<UtenteDTO>> GetAll()
+        {
+            return await this._angularDAL.GetAll();
+        }
 
         #endregion
 

@@ -10,8 +10,9 @@ namespace DAL.Angular
 {
     public class AngularDAL_Fake : IAngularDAL
     {
-        private static readonly List<UtenteDTO> users;
+        #region Dati FAke per utenti
 
+        private static readonly List<UtenteDTO> users;
         static AngularDAL_Fake()
         {
             users = new List<UtenteDTO>()
@@ -70,13 +71,19 @@ namespace DAL.Angular
             };
         }
 
+        #endregion
+
+        #region Metodi Interfaccia
+
         public async Task<LoginResponseDTO> Login(LoginRequestDTO login)
         {
  
             await Task.Delay(500);
 
+            //cerco nella lista utenti se esistono  nome password ricevuti dal client
             UtenteDTO utente = users.SingleOrDefault(u => u.nome == login.nome && u.password == login.password);
 
+            //costruisco la reponse con i dati trovati 
             LoginResponseDTO response = new LoginResponseDTO()
             {
                 log = utente == null ? "No" : "Si",
@@ -87,5 +94,13 @@ namespace DAL.Angular
             return response;
 
         }
+
+        public async Task<IEnumerable<UtenteDTO>> GetAll()
+        {
+            await Task.Delay(1000);
+            return users;
+        }
+
+        #endregion
     }
 }
