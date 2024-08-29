@@ -6,8 +6,10 @@ using Interfaccia_BL.Libreria;
 
 using BL.Angular;
 using DAL.Angular;
+using DAL.Data;
 using Interfaccia_BL.Angular;
 using Interfaccia_DAL.Angular;
+using Microsoft.EntityFrameworkCore;
 
 namespace Microservizio
 {
@@ -16,6 +18,14 @@ namespace Microservizio
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Recupera la connection string dal file appsettings.json
+            String? connectionStrings = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            // Configura il nostro Application DB Context con la connessione verso il DB
+            builder.Services.AddDbContext<ApplicationDbContext>(options => {
+                options.UseMySql(connectionStrings, ServerVersion.AutoDetect(connectionStrings));
+            });
 
             // Add services to the container.
 
